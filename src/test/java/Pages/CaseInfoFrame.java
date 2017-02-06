@@ -16,7 +16,7 @@ public class CaseInfoFrame extends BasePage {
 	private String firstName = "FirstNameValue";
 	private String lastName = "LastNameValue";
 	private String caseDescritpion = "Automation";
-	private String state = "Arizona";
+	private String state = "Iowa";
 	private String product = "Fully Underwritten Term";
 	private String productType = "10-Year-Level Term";
 	private static final String DATEMONTH_XPATH = "//input[contains(@class,'jq-dte-month')]";

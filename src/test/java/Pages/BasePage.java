@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +11,8 @@ import ru.yandex.qatools.htmlelements.loader.HtmlElementLoader;
 public abstract class BasePage{
 
 	private static final int DEFAULT_WAIT_TIMEOUT_SEC = 1000;
+	public static final By LOADER_HIDDEN_LOCATOR = By.xpath("//div[contains(@class,'loading-icon') and contains(@class,'hidden')]");
+	public static final By LOADER_LOCATOR = By.xpath("//div[@class='loading-icon']");
 
 	private WebDriver driver;
 	private int waitTimeout = DEFAULT_WAIT_TIMEOUT_SEC;
@@ -18,7 +21,7 @@ public abstract class BasePage{
 		this.driver = driverAsInput;
 		HtmlElementLoader.populatePageObject(this, driverAsInput);
 	}
-
+	
 	protected WebDriver getDriver() {
 		return driver;
 	}
@@ -27,6 +30,10 @@ public abstract class BasePage{
 		waitFor(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameId));
 	}
 
+	public void waitForLoaderAppearAndDisappearedAfterClick() {
+		waitFor(ExpectedConditions.visibilityOfElementLocated(LOADER_LOCATOR));
+		waitFor(ExpectedConditions.presenceOfElementLocated(LOADER_HIDDEN_LOCATOR));
+	}
 
 	public void waitFor(ExpectedCondition<?> condition, int timeoutSeconds) {
 		new WebDriverWait(driver, timeoutSeconds).until(condition);

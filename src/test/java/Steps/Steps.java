@@ -3,7 +3,10 @@ package Steps;
 import org.openqa.selenium.WebDriver;
 
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
+
+import Driver.ExcelUtils;
 import GuicePackage.SimpleModule;
 import Pages.CaseInfoFrame;
 import Pages.CaseInfoPage;
@@ -16,8 +19,9 @@ public class Steps {
 	
 	//private WebDriver driver;
 	private Injector injector;
-
-	public Steps() {
+	
+    @Inject
+	public Steps() throws Exception  {
 		injector = Guice.createInjector(new SimpleModule());
 		
 		//WebDriver driver = injector.getInstance(WebDriver.class);
@@ -29,10 +33,10 @@ public class Steps {
 		injector.getInstance(WebDriver.class).quit();
 	}
 	
-	public void loginAmFamily(String url, String username, String password) {
+	public void loginAmFamily(String url, String username) {
 		LoginPage loginPage = injector.getInstance(LoginPage.class);
 		//LoginPage loginPage = new LoginPage(driver);
-		loginPage.signIn(url, username, password);
+		loginPage.signIn(url, username);
 	}
 	
 	public void startNewCase() {
